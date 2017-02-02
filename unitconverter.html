@@ -13,6 +13,8 @@
                 uc.convertedweight = 0;
                 uc.long = 0;
                 uc.convertedlength = 0;
+                uc.volume = 0;
+                uc.convertedvolume = 0;
                 
                 uc.convertweight = function convertweight(){
                     if (uc.metric_weight.name == "Grams" && uc.imperial_weight.name =="Ounces"){
@@ -98,6 +100,50 @@
                         uc.convertedlength = uc.long * 0.621371;
                         return uc.convertedlength;
                     }
+                    
+                }
+                
+                 uc.convertvolume = function convertvolume(){
+                    if(uc.metric_volume.name == "Cubic Centimeters" && uc.imperial_volume.name == "Fluid Ounces"){
+                        uc.convertedvolume = uc.volume * 0.033814;
+                        return uc.convertedvolume;
+                    }
+                    else if(uc.metric_volume.name == "Cubic Centimeters" && uc.imperial_volume.name == "Pints"){
+                        uc.convertedvolume = uc.volume * 0.00211338;
+                        return uc.convertedvolume;
+                    }
+                    else if(uc.metric_volume.name == "Cubic Centimeters" && uc.imperial_volume.name == "Gallons"){
+                        uc.convertedvolume = uc.volume * 0.000264172;
+                        return uc.convertedvolume;
+                    }
+                    else if(uc.metric_volume.name == "Cubic Meters" && uc.imperial_volume.name == "Fluid Ounces"){
+                        uc.convertedvolume = uc.volume * 33814;
+                        return uc.convertedvolume;
+                    }
+                    else if(uc.metric_volume.name == "Cubic Meters" && uc.imperial_volume.name == "Pints"){
+                        uc.convertedvolume = uc.volume * 2113.38;
+                        return uc.convertedvolume;
+                    }
+                    else if(uc.metric_volume.name == "Cubic Meters" && uc.imperial_volume.name == "Gallons"){
+                        uc.convertedvolume = uc.volume * 264.172;
+                        return uc.convertedvolume;
+                    }
+                    else if(uc.metric_volume.name == "Cubic Meters" && uc.imperial_volume.name == "Gallons"){
+                        uc.convertedvolume = uc.volume * 264.172;
+                        return uc.convertedvolume;
+                    }
+                    else if(uc.metric_volume.name == "Liters" && uc.imperial_volume.name == "Fluid Ounces"){
+                        uc.convertedvolume = uc.volume * 33.814;
+                        return uc.convertedvolume;
+                    }
+                    else if(uc.metric_volume.name == "Liters" && uc.imperial_volume.name == "Pints"){
+                        uc.convertedvolume = uc.volume * 2.11338;
+                        return uc.convertedvolume;
+                    }
+                    else{
+                        uc.convertedvolume = uc.volume * 0.264172;
+                        return uc.convertedvolume;
+                    }
                 }
                 
                 
@@ -129,11 +175,28 @@
                     {name:"Feet"},
                     {name:"Yards"},
                     {name:"Miles"}
-                ]
+                ];
                 
                 uc.imperial_length = uc.imperial_length_options[0];
                 
+                uc.metric_volume_options = [
+                    {name:"Cubic Centimeters"},
+                    {name:"Cubic Meters"},
+                    {name:"Liters"}
+                ];
+                
+                uc.metric_volume = uc.metric_volume_options[0];
+                
+                uc.imperial_volume_options = [
+                    {name:"Fluid Ounces"},
+                    {name:"Pints"},
+                    {name:"Gallons"}
+                ];
+                
+                uc.imperial_volume = uc.imperial_volume_options[0];
+                
             }
+            
         );
         
         
@@ -163,6 +226,17 @@
             </p>
             <p>
                 <span ng-bind="uc.long"></span> <span ng-bind="uc.metric_length.name"></span> equals {{uc.convertedlength}} <span ng-bind="uc.imperial_length.name"></span>
+            </p>
+            <p>
+                <h1>Volume Converter</h1>
+                <input type="text" ng-model="uc.volume" placeholder="0" />
+                <span><select ng-model="uc.metric_volume" ng-options="s.name for s in uc.metric_volume_options" ng-change="uc.convertvolume()"></select></span>
+                To <span><select ng-model ="uc.imperial_volume" ng-options="s.name for s in uc.imperial_volume_options" ng-change="uc.convertvolume()"></select>
+                <button ng-click="uc.convertvolume()">Convert</button></span><br/>
+                The selected unit is <span ng-bind="uc.metric_volume.name"></span>
+            </p>
+            <p>
+                <span ng-bind="uc.volume"></span> <span ng-bind="uc.metric_volume.name"></span> equals {{uc.convertedvolume}} <span ng-bind="uc.imperial_volume.name"></span>
             </p>
         </div>
         
