@@ -1,5 +1,7 @@
 # Unit Converter
 
+This program converts metric units to imperial units for weight, length, and volume.
+
 
 ### Controller Code
 ```
